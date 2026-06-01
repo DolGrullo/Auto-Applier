@@ -1,0 +1,47 @@
+# ─────────────────────────────────────────────
+#  Auto Applier — Email Templates
+#  {ROLE}, {COMPANY}, {SCHOOL}, {ALUMNI_GREETING}, {SIGN_OFF}
+#  are replaced dynamically per job posting.
+# ─────────────────────────────────────────────
+
+alumni_email:
+  subject: "{SCHOOL} Alum -- {ROLE} Application"
+  body: |
+    Hello,
+
+    I hope this message finds you well. As a {ALUMNI_GREETING}, I wanted to reach
+    out directly regarding the {ROLE} role at {COMPANY}.
+
+    I am a recent {SCHOOL} graduate with a background in investment banking and
+    financial analysis. I came across your profile and thought I'd connect directly,
+    as I believe my skills and enthusiasm for the space align well with what the
+    team is building.
+
+    I have submitted a formal application and would love the opportunity to connect
+    if you have a few minutes. I am happy to share more about my background at your
+    convenience.
+
+    Thank you for your time, and {SIGN_OFF}
+
+    Best regards,
+    {NAME}
+    {EMAIL}
+
+team_email:
+  subject: "{ROLE} Application -- {SCHOOL} Grad, Investment Banking Background"
+  body: |
+    Hello,
+
+    I hope this message finds you well. I wanted to reach out directly regarding
+    the {ROLE} role at {COMPANY}.
+
+    I am a {SCHOOL} graduate with a background in investment banking and financial
+    analysis, and I am drawn to {COMPANY}'s work in this space. I have submitted a
+    formal application and would love the opportunity to connect if you have a few
+    minutes. Happy to share more about my background at your convenience.
+
+    Thank you for your time.
+
+    Best regards,
+    {NAME}
+    {EMAIL}

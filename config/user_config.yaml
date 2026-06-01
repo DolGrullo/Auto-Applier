@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────
+#  Auto Applier — User Configuration
+#  Edit these values before running the workflow
+# ─────────────────────────────────────────────
+
+user:
+  name: "Victor Vuong"
+  email: "victorvuong7144@gmail.com"
+  phone: "(714) 469-1148"
+  location: "Los Angeles, CA"
+  degree: "B.S. in Business Administration"
+  school_name: "USC Marshall School of Business"
+
+school:
+  full_name: "University of Southern California"
+  short_name: "USC"
+  linkedin_facet_id: "3084"         # LinkedIn school ID for alumni filter
+  alumni_greeting: "fellow Trojan"  # Used in USC alumni outreach email
+  alumni_sign_off: "Fight on!"      # Sign-off for USC alumni email
+
+assets:
+  resume_path: "assets/resume.pdf"
+  signature_path: "assets/signature.jpeg"
+  cover_letter_output_dir: "output/"
+
+email:
+  # BCC variants to generate per person
+  # Supported tokens: {first}, {last}, {f}, {l}
+  formats:
+    - "{first}.{last}"
+    - "{first}"
+    - "{first}{last}"
+    - "{f}{last}"
