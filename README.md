@@ -88,7 +88,32 @@ When browsing LinkedIn manually, use `scripts/linkedin_extract.js` in your brows
 
 ### Gmail drafts
 
-Drafts are created with all outreach addresses in BCC. The To: field is intentionally left blank — fill it in before sending. **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments).
+**Finding contacts:**
+Before creating either draft, search LinkedIn (`/company/{slug}/people/?facetSchool={ID}`) and the company website to find:
+- **USC alumni** at the company → used for the alumni draft BCC
+- **Hiring division / commercial team contacts** → used for the team draft BCC (trim to 6–10 most decision-relevant people)
+
+**Generating BCC email addresses:**
+For each person found, generate all 4 format variations using the company's domain:
+1. `first.last@companydomain`
+2. `first@companydomain`
+3. `firstlast@companydomain`
+4. `flast@companydomain`
+
+Add every variation as BCC on the appropriate draft:
+- Alumni draft BCC → all format variations for each USC alum found
+- Team draft BCC → all format variations for each hiring team contact found
+
+**Subject line:**
+```
+{ROLE} Application, USC Grad
+```
+Use the exact role title from the job posting. Example: `Software Engineer Application, USC Grad`
+
+**Rules:**
+- Leave the To: field empty — fill it in manually before sending
+- Do **not** create either draft unless BCC is populated
+- **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments)
 
 ---
 
@@ -127,7 +152,7 @@ auto-applier/
 
 - Email format verification is done via RocketReach or web search each run
 - If no alumni are found at a company, the alumni draft and BCC list are skipped
-- Team BCC lists are trimmed to 5-6 most decision-relevant people to avoid over-spamming
+- Team BCC lists are trimmed to 6–10 most decision-relevant people to avoid over-spamming
 - Cover letters are 1 page, no em dashes, with embedded handwritten signature
 
 ---
