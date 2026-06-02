@@ -111,6 +111,7 @@ Add every variation as BCC on the appropriate draft:
 Use the exact role title from the job posting. Example: `Software Engineer Application, USC Grad`
 
 **Rules:**
+- **Save as Gmail draft only** — never send the email; always use the Gmail MCP `create_draft` action
 - **To: field MUST remain empty** — do not populate it under any circumstances; the user fills it in manually before sending
 - Do **not** create either draft unless BCC is populated
 - **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments)
