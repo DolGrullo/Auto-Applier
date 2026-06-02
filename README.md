@@ -91,7 +91,7 @@ When browsing LinkedIn manually, use `scripts/linkedin_extract.js` in your brows
 **Finding contacts:**
 Before creating either draft, search LinkedIn (`/company/{slug}/people/?facetSchool={ID}`) and the company website to find:
 - **USC alumni** at the company → used for the alumni draft BCC
-- **Hiring division / commercial team contacts** → used for the team draft BCC (trim to 6–10 most decision-relevant people)
+- **Hiring division / commercial team contacts** → used for the team draft BCC (include as many relevant people as possible — recruiters, hiring managers, team leads, and anyone in the division; do not artificially limit)
 
 **Generating BCC email addresses:**
 For each person found, generate all 4 format variations using the company's domain:
@@ -106,13 +106,13 @@ Add every variation as BCC on the appropriate draft:
 
 **Subject line:**
 ```
-{ROLE} Application, USC Grad
+{ROLE}, USC Grad
 ```
-Use the exact role title from the job posting. Example: `Software Engineer Application, USC Grad`
+Use the exact role title from the job posting. Example: `Software Engineer, USC Grad`
 
 **Rules:**
 - **Save as Gmail draft only** — never send the email; always use the Gmail MCP `create_draft` action
-- **To: field MUST remain empty** — do not populate it under any circumstances; the user fills it in manually before sending
+- **To: field MUST be left completely empty** — pass an empty string or omit it entirely when calling `create_draft`; never put any address in To: for any reason
 - Do **not** create either draft unless BCC is populated
 - **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments)
 
@@ -153,8 +153,8 @@ auto-applier/
 
 - Email format verification is done via RocketReach or web search each run
 - If no alumni are found at a company, the alumni draft and BCC list are skipped
-- Team BCC lists are trimmed to 6–10 most decision-relevant people to avoid over-spamming
-- Cover letters are 1 page, no em dashes, with embedded handwritten signature
+- Team BCC lists include all relevant contacts found — recruiters, hiring managers, team leads, division members; do not trim arbitrarily
+- Cover letters must fit exactly 1 page — scale font size, margins, or line spacing as needed to fill the page without overflow
 
 ---
 
