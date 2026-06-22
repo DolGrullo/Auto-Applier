@@ -21,8 +21,23 @@ import argparse
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Image, Flowable
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
+
+
+class VerticalFill(Flowable):
+    """Expands to consume remaining vertical space minus the closing block height,
+    pushing content after it (closing + signature) to the bottom of the page."""
+    # Approximate height (pts) needed for: spacer + Sincerely + spacer +
+    # signature image + spacer + name + degree + school lines
+    CLOSING_HEIGHT = 130
+
+    def wrap(self, available_width, available_height):
+        self.height = max(0, available_height - self.CLOSING_HEIGHT)
+        return (available_width, self.height)
+
+    def draw(self):
+        pass
 import yaml
 import os
 
@@ -81,6 +96,9 @@ def build_cover_letter(company, address1, address2, role, paragraphs, output_pat
     # Body paragraphs
     for para in paragraphs:
         story.append(Paragraph(para.strip(), body_style))
+
+    # Fill remaining page height so closing sits at the bottom
+    story.append(VerticalFill())
 
     # Closing
     story.append(Spacer(1, 6))
