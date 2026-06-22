@@ -102,6 +102,34 @@ When browsing LinkedIn manually, use `scripts/linkedin_extract.js` in your brows
 
 Drafts are created with all outreach addresses in BCC. The To: field must be left blank — pass `to: []` (empty array) when calling `create_draft`. **Never put Victor's email or any placeholder in the To: field.** Fill in a recipient manually in Gmail before sending. **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments).
 
+**Finding contacts:**
+Before creating either draft, search LinkedIn (`/company/{slug}/people/?facetSchool={ID}`) and the company website to find:
+- **USC alumni** at the company → used for the alumni draft BCC
+- **Hiring division / commercial team contacts** → used for the team draft BCC (see "Team contact sourcing rules" below for the 10+ minimum and broadening requirement)
+
+**Generating BCC email addresses:**
+For each person found, generate all 4 format variations using the company's domain:
+1. `first.last@companydomain`
+2. `first@companydomain`
+3. `firstlast@companydomain`
+4. `flast@companydomain`
+
+Add every variation as BCC on the appropriate draft:
+- Alumni draft BCC → all format variations for each USC alum found
+- Team draft BCC → all format variations for each hiring team contact found
+
+**Subject line:**
+```
+{ROLE}, USC Grad
+```
+Use the exact role title from the job posting. Example: `Software Engineer, USC Grad`
+
+**Rules:**
+- **Save as Gmail draft only** — never send the email; always use the Gmail MCP `create_draft` action
+- **To: field MUST be left completely empty** — pass an empty string or omit it entirely when calling `create_draft`; never put any address in To: for any reason
+- Do **not** create either draft unless BCC is populated
+- **Attach your resume manually** before sending each draft (Gmail MCP does not support attachments)
+
 ---
 
 ## Output
@@ -139,7 +167,8 @@ auto-applier/
 
 - Email format verification is done via RocketReach or web search each run
 - If no alumni are found at a company, the alumni draft and BCC list are skipped
-- Cover letters are NOT generated unless explicitly requested. When requested: 1 page, no em dashes, with embedded handwritten signature, must fill the whole page (closing/signature anchored to bottom)
+- Cover letters are NOT generated unless explicitly requested. When requested: exactly 1 page, no em dashes, with embedded handwritten signature, must fill the whole page (closing/signature anchored to bottom)
+- Team BCC lists include all relevant contacts found — recruiters, hiring managers, team leads, division members; do not trim arbitrarily (see "Team contact sourcing rules" below for the 10+ minimum)
 - **"Anchored to bottom" is not the same as "fills the page."** `scripts/generate_cover_letter.py` uses a `VerticalFill` flowable that always pushes the closing/signature block down to the bottom margin, regardless of how short the body is. That mechanism alone does NOT make the letter look full — if the body paragraphs are short, the result is a technically-one-page letter with a large, unprofessional dead gap between the body and the signature. Filling the page is a CONTENT requirement, not something the script does for you.
 - Both email drafts must include BCC recipients with all 4 email format variations per person (first.last, first, firstlast, flast — all @companydomain). Alumni draft BCCs USC alumni found at the company; team draft BCCs hiring division contacts
 
@@ -165,6 +194,7 @@ auto-applier/
 3. **Use specific, researched details**, not generic filler, to reach that length: cite something concrete about the company's strategy, products, recent news, or the specific responsibilities in the job posting. This is what naturally produces enough substantive content, rather than padding with repetition.
 4. **Always verify visually before presenting the file.** After generating the PDF, render page 1 to a PNG (e.g. with `pymupdf`/`fitz`: `page.get_pixmap(matrix=fitz.Matrix(2,2)).save(...)`) and read the image. Confirm there is no large empty gap between the last body paragraph and "Sincerely," — if there is, lengthen the body and regenerate. Do not skip this check.
 5. No em dashes (see rule 2 above — applies to cover letters too).
+6. Cover letters must fit exactly 1 page — scale font size, margins, or line spacing as needed to fill the page without overflow.
 
 ---
 
